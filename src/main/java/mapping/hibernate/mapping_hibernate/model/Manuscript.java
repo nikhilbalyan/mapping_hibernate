@@ -1,6 +1,8 @@
 package mapping.hibernate.mapping_hibernate.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
@@ -11,11 +13,23 @@ public class Manuscript {
 
 	@Id
 	private Long id;
+	
+	private String name;
 
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "id")
 	@MapsId
 	private Book book;
+	
+	
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	public Long getId() {
 		return id;

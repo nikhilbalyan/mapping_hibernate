@@ -10,9 +10,19 @@ import javax.persistence.SequenceGenerator;
 @Entity
 public class Book {
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@SequenceGenerator(name = "book_seq")
 	private Long id;
+	
+	private String bookName;
+
+	public String getBookName() {
+		return bookName;
+	}
+
+	public void setBookName(String bookName) {
+		this.bookName = bookName;
+	}
 
 	@OneToOne(mappedBy = "book")
 	private Manuscript manus;

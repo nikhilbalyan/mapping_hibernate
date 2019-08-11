@@ -1,5 +1,7 @@
 package mapping.hibernate.mapping_hibernate.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -14,6 +16,12 @@ public class BookRepositoryServiceBean implements BookRepositoryService {
 
 	@Autowired
 	private BookRepository bookRepository;
+	
+	@Override
+	public Optional<Book> findOne(Long id) {
+		Optional<Book> book = bookRepository.findById(id);
+		return book;
+	}
 	
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED,
