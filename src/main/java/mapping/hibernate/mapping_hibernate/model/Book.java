@@ -1,6 +1,8 @@
 package mapping.hibernate.mapping_hibernate.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,7 +26,7 @@ public class Book {
 		this.bookName = bookName;
 	}
 
-	@OneToOne(mappedBy = "book")
+	@OneToOne(mappedBy = "book", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
 	private Manuscript manus;
 
 	public Long getId() {

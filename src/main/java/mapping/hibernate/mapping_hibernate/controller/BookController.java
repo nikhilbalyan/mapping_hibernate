@@ -38,8 +38,24 @@ public class BookController {
 	
 	@RequestMapping(value="/addProducts", method= RequestMethod.POST)
 	public ResponseEntity<Book> addBookRepository(@RequestBody Book book) {
-		Book createBook = bookRepositoryService.create(book);
-		return new ResponseEntity<Book>(createBook, HttpStatus.CREATED);		
+//		Book createBook = bookRepositoryService.create(book);
+//		return new ResponseEntity<Book>(createBook, HttpStatus.CREATED);
+		
+//		for saving one to many we can iterate over 
+//		customReport.getCustomReportActivitySet.forEach((activity) -> {
+//		      activity.setCustomReport(customReport);
+//		   });
+		
+		Manuscript manuss = book.getManus();
+		manuss.setBook(book);
+		
+		book.setManus(manuss);
+//		bookRepo.persist(book)
+//		Book createBook = bookRepo.saveAndFlush(book);
+		Object obj = bookRepo.save(book);
+		System.out.println(obj);
+		Book createBook = new Book();
+		return new ResponseEntity<Book>(createBook, HttpStatus.CREATED);
 	}
 	
 	@RequestMapping(value="/{bookId}/addBook", method = RequestMethod.POST)

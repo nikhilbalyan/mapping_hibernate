@@ -16,7 +16,8 @@ public class Manuscript {
 	
 	private String name;
 
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToOne
 	@JoinColumn(name = "id")
 	@MapsId
 	private Book book;
