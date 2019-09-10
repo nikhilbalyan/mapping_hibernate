@@ -1,25 +1,35 @@
 package mapping.hibernate.mapping_hibernate.model;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.MapsId;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Manuscript {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	private String name;
 
 //	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@OneToOne
-	@JoinColumn(name = "id")
-	@MapsId
+	
+	
+//	annotations required for one to one mapping
+//	@OneToOne
+//	@JoinColumn(name = "id")
+//	@MapsId
+//	@JsonIgnore
+	
+	@ManyToOne
+	@JoinColumn(name = "book_id", insertable = false, updatable = false)
+	@JsonIgnore
 	private Book book;
 	
 	

@@ -35,7 +35,7 @@ public class BookController {
 	@Autowired
 	BookRepository bookRepo;
 	
-	
+	// working code
 	@RequestMapping(value="/addProducts", method= RequestMethod.POST)
 	public ResponseEntity<Book> addBookRepository(@RequestBody Book book) {
 //		Book createBook = bookRepositoryService.create(book);
@@ -45,17 +45,26 @@ public class BookController {
 //		customReport.getCustomReportActivitySet.forEach((activity) -> {
 //		      activity.setCustomReport(customReport);
 //		   });
+
 		
-		Manuscript manuss = book.getManus();
-		manuss.setBook(book);
+		// one to many mapping uncomment all of them for making it work
+		book.getManus().forEach((manu) -> {
+			manu.setBook(book);
+		});
+//		Book createdBook = new Book();
+//		createdBook = bookRepo.save(book);
+		bookRepo.save(book);
 		
-		book.setManus(manuss);
-//		bookRepo.persist(book)
-//		Book createBook = bookRepo.saveAndFlush(book);
-		Object obj = bookRepo.save(book);
-		System.out.println(obj);
-		Book createBook = new Book();
-		return new ResponseEntity<Book>(createBook, HttpStatus.CREATED);
+		return new ResponseEntity<Book>(book, HttpStatus.CREATED);
+		
+		//one to one mapping uncomment all of them for making it work
+//		book.setManus(manuss);
+//		Object obj = bookRepo.save(book);
+//		System.out.println(obj);
+//		Book createBook = new Book();
+//		createBook = (Book)obj;
+//		return new ResponseEntity<Book>(createBook, HttpStatus.CREATED);
+		
 	}
 	
 	@RequestMapping(value="/{bookId}/addBook", method = RequestMethod.POST)
